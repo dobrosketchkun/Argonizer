@@ -195,7 +195,7 @@ def generate_password(
             progress.advance(task)
             if debug_level == 2:
                 # For minimal debug, show the generated password per iteration
-                console.print(f"[bold green]Generated Password: {password}[/bold green]")
+                console.print(f"[bold green]Generated Password {str(i+1).zfill(2)}/{iterations}: {password}[/bold green]")
 
     return password
 
