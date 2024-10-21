@@ -1,4 +1,4 @@
-# Argon2 Password Generator
+# Argonizer
 
 Welcome to the **Argonizer**! 🚀 A secure, flexible, and user-friendly tool to create robust passwords tailored to your needs. Ish.
 
