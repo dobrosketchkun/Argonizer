@@ -32,7 +32,7 @@ pip install argon2-cffi rich
 Run the script using Python with various command-line arguments to customize your password generation:
 
 ```bash
-python password_generator.py -n 1000 --uppercase --special -l 16
+python argonizer.py -n 1000 --uppercase --special -l 16
 ```
 
 ### 🔍 Example Commands
@@ -40,7 +40,7 @@ python password_generator.py -n 1000 --uppercase --special -l 16
 1. **Basic Usage with Interactive Salts:**
 
     ```bash
-    python password_generator.py -n 500
+    python argonizer.py -n 500
     ```
 
     You'll be prompted to enter the number of salts and input them securely.
@@ -48,7 +48,7 @@ python password_generator.py -n 1000 --uppercase --special -l 16
 2. **Using a Configuration File for Salts:**
 
     ```bash
-    python password_generator.py -n 1000 -c salts_config.txt
+    python argonizer.py -n 1000 -c salts_config.txt
     ```
 
     Ensure `salts_config.txt` contains one salt per line.
@@ -56,7 +56,7 @@ python password_generator.py -n 1000 --uppercase --special -l 16
 3. **Customizing Character Sets and Length:**
 
     ```bash
-    python password_generator.py -n 2000 --uppercase --special -l 20 --summary
+    python argonizer.py -n 2000 --uppercase --special -l 20 --summary
     ```
 
     Generates a 20-character password including uppercase and special characters, and displays a summary.
@@ -95,7 +95,7 @@ secureSalt789
 Use the `-c` or `--config` flag to specify the path:
 
 ```bash
-python password_generator.py -n 1000 -c salts_config.txt
+python argonizer.py -n 1000 -c salts_config.txt
 ```
 
 ## 🐞 Debugging
@@ -109,7 +109,7 @@ Adjust the verbosity of the script using the `--debug-level` flag:
 Example:
 
 ```bash
-python generate_password.py -n 10 -u -sp -l 32 --summary --debug-level 2 -i my111nitial$$$tring -s saltOne123 anotherSalt456 secureSalt789
+python argonizer.py -n 10 -u -sp -l 32 --summary --debug-level 2 -i my111nitial$$$tring -s saltOne123 anotherSalt456 secureSalt789
 ```
 
 Example Output:
