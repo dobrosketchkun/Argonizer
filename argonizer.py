@@ -182,6 +182,7 @@ def generate_password(
                 if debug_level == 1:
                     console.print(f"\n[bold green]Generated Password: {password}[/bold green]\n")
                 # Update current_string for the next iteration
+                current_string = password
             except Exception as e:
                 console.print(f"[red]Error during hashing: {e}[/red]")
                 sys.exit(1)
