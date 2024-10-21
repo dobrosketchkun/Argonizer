@@ -1,8 +1,8 @@
 import argparse
 import sys
 from getpass import getpass
-from argon2 import PasswordHasher
-from argon2.exceptions import VerifyMismatchError
+import hashlib
+from argon2.low_level import hash_secret_raw, Type
 from rich.console import Console
 from rich.prompt import Prompt
 from rich.progress import Progress, BarColumn, TextColumn, TimeElapsedColumn, TimeRemainingColumn
@@ -78,17 +78,16 @@ def map_hash_to_password(
     Map the hash string to a password using the provided character set.
     Ensures that each required character set is represented at least once.
     """
-    # Extract the actual hash part from the Argon2 hash string
-    hash_part = hash_str.split('$')[-1]
-    hash_bytes = hash_part.encode('utf-8')
-    
+    # Convert the hex string back to bytes for consistent mapping
+    hash_bytes = bytes.fromhex(hash_str)
+
     # Step 1: Generate Base Password
     base_password = []
     for i in range(length):
         char = charset[hash_bytes[i % len(hash_bytes)] % len(charset)]
         base_password.append(char)
     base_password_str = ''.join(base_password)
-    
+
     # Step 2: Apply Required Character Sets
     final_password = list(base_password_str)
     changed_indices = []  # To track which indices are changed
@@ -103,7 +102,7 @@ def map_hash_to_password(
         new_char = req_charset[hash_bytes[(len(changed_indices) + len(required_charsets)) % len(hash_bytes)] % len(req_charset)]
         final_password[pos] = new_char
         changed_indices.append(pos)
-    
+
     final_password_str = ''.join(final_password)
 
     if debug_level == 1:
@@ -116,14 +115,12 @@ def map_hash_to_password(
                 after_text.append(char, style="bold green")
             else:
                 after_text.append(char, style="bold cyan")
-        
+
         # Display the summary
         console.print("\n[bold magenta]Password Before Mapping:[/bold magenta]")
         console.print(before_text)
         console.print("[bold magenta]Password After Mapping:[/bold magenta]")
         console.print(after_text)
-    
-    # Removed debug_level == 2 from here to prevent duplicate printing
 
     return final_password_str
 
@@ -144,14 +141,6 @@ def generate_password(
     Generate a password by iteratively hashing the input string with salts.
     Ensures inclusion of required character types.
     """
-    # Argon2 configuration for slower, more secure execution
-    ph = PasswordHasher(
-        time_cost=time_cost,      
-        memory_cost=memory_cost,  
-        parallelism=parallelism, 
-        hash_len=32,              
-        salt_len=16                
-    )
     current_string = initial_string
 
     password = ""
@@ -173,12 +162,29 @@ def generate_password(
                 console.print(f"[yellow]Using Salt: {salt}[/yellow]\n")
 
             try:
-                # Hash using Argon2 with updated parameters
-                hash = ph.hash(concatenated)
+                # Derive a fixed salt from the concatenated string using SHA-256
+                # This ensures the salt is consistent for the same concatenated input
+                fixed_salt = hashlib.sha256(concatenated.encode('utf-8')).digest()[:16]  # 16 bytes salt
+
+                # Hash using Argon2 with fixed salt
+                hash_bytes = hash_secret_raw(
+                    secret=concatenated.encode('utf-8'),
+                    salt=fixed_salt,
+                    time_cost=time_cost,
+                    memory_cost=memory_cost,
+                    parallelism=parallelism,
+                    hash_len=32,
+                    type=Type.ID  # Using Argon2id for better security
+                )
+
+                # Convert hash bytes to a hex string for consistency
+                hash_hex = hash_bytes.hex()
+
                 if debug_level == 1:
-                    console.print(f"[yellow]Argon2 Hash: {hash}[/yellow]\n")
+                    console.print(f"[yellow]Argon2 Hash (hex): {hash_hex}[/yellow]\n")
+
                 # Map the hash to the password with required character types
-                password = map_hash_to_password(hash, charset, length, required_charsets, console, debug_level)
+                password = map_hash_to_password(hash_hex, charset, length, required_charsets, console, debug_level)
                 if debug_level == 1:
                     console.print(f"\n[bold green]Generated Password: {password}[/bold green]\n")
                 # Update current_string for the next iteration
@@ -190,7 +196,7 @@ def generate_password(
             if debug_level == 2:
                 # For minimal debug, show the generated password per iteration
                 console.print(f"[bold green]Generated Password: {password}[/bold green]")
-    
+
     return password
 
 def display_summary(
