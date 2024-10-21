@@ -120,17 +120,17 @@ Initial string provided via argument.
 
 Starting password generation with 10 iterations...
 
-Generated Password: ^q>zP_}-&{)3o$;N1+LV3TB[w>%-Q,p:
-Generated Password: 5yLr|_yV^)~v~|=sy133vr5;2wcO&}/]
-Generated Password: ?|zT$*rp[=0u(t?294S-E?0n;rs5o)hw
-Generated Password: $f1oV0Vs^.^1nj_P{HH1o-F<]z7y-1U)
-Generated Password: ix/y[=4TTT%`h`wwpS4nyR0]moiM%}sh
-Generated Password: jRsHkgL~}/Q$[Vg4_`OlH7|};N3O$m3<
-Generated Password: yplUPrQju&8v)+?hP2$zw+M3+kTVOo&:
-Generated Password: (^o9t}g,?T.<<yx]h|(p]]vghjL5wPlu
-Generated Password: j8[yw1x3&P+`K`V3y;;%V+O:gPnPyl^z
-Generated Password: {yU**_^*uV-_y|rsTV37njkRP%VQq-&m
-Generating password... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:00 0:00:00
+Generated Password 01/10: _mnxik:RcCi_0EDt3B~uC]QI=72Uj(7v
+Generated Password 02/10: w|9C99c])1r6mtH4eiBW<gVm=#q<@BlW
+Generated Password 03/10: mN{a,KK69HQEsa3x9YqTVpkhgg6;6@@6
+Generated Password 04/10: r`4mcIf;H#Lx`JA+?pDr6X7ssNWvZtFb
+Generated Password 05/10: )#;W/pCGvn<GM{YV}:v=~GHm5$|5Mx|6
+Generated Password 06/10: <I{ms^Y=T*KXXWnm8%!?Yf7g^qOcZ+UT
+Generated Password 07/10: /O60ng51ZqEo^xF&M28F>w7|a)&Fw@Ko
+Generated Password 08/10: <DyoFqV6j!PB2,=RrHj+Nph)F|jvCo48
+Generated Password 09/10: B^Z>I.SJel=(c*JzV8XK[OesC!_sPH4+
+Generated Password 10/10: u8lZiY(M]*vSiiAYH*!;|Np#0++q{KF&
+Generating password... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:02:03 0:00:00
 
                        Password Generation Summary
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -150,7 +150,7 @@ Generating password... ━━━━━━━━━━━━━━━━━━━
 ├────────────────────────────┼───────────────────────────────────────────┤
 │ Password Length            │ 32                                        │
 ├────────────────────────────┼───────────────────────────────────────────┤
-│ Final Password             │ {yU**_^*uV-_y|rsTV37njkRP%VQq-&m          │
+│ Final Password             │ u8lZiY(M]*vSiiAYH*!;|Np#0++q{KF&          │
 └────────────────────────────┴───────────────────────────────────────────┘
 ```
 
